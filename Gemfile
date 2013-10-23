@@ -42,6 +42,8 @@ end
 
 group :development do
   gem 'capistrano', '~> 3.0.0'
+  gem 'capistrano-rvm', '~> 0.0.2'
+  gem 'capistrano-bundler'
 end
 
 group :test do
