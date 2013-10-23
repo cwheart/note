@@ -45,4 +45,4 @@ server '180.186.38.170', user: 'www-data', roles: %w{web app}, my_property: :my_
 #   }
 # setting per server overrides global ssh_options
 
-# fetch(:default_env).merge!(rails_env: :production)
+fetch(:default_env).merge!(rails_env: :production)
