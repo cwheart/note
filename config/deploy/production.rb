@@ -4,7 +4,9 @@ set :deploy_to, '/www/node'
 
 set :rvm_type, :system
 set :rvm_ruby_version, '2.0.0'
-# set :rvm_custom_path, '/usr/local/rvm/bin/rvm'
+
+set :rails_env, "production"
+set :unicorn_path, "#{deploy_to}/current/config/unicorn.rb"
 
 # Simple Role Syntax
 # ==================
