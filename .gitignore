@@ -13,6 +13,7 @@
 /db/structure.sql
 config/database.yml
 config/unicorn.rb
+config/puma.rb
 
 # Ignore all logfiles and tempfiles.
 log/*
