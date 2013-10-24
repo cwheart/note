@@ -10,7 +10,7 @@ set :scm, :git
 # set :pty, true
 
 set :linked_files, %w{config/database.yml config/unicorn.rb config/puma.rb}
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets tmp/states vendor/bundle public/system}
 
 set :keep_releases, 5
 
@@ -19,21 +19,21 @@ namespace :deploy do
   desc "Start application"
   task :start do
     on roles(:app) do
-      execute "cd #{deploy_to}/current/ && RAILS_ENV=#{fetch(:rails_env)} bundle exec unicorn_rails -c #{deploy_to}/current/config/unicorn.rb -D"
+      execute "cd #{deploy_to}/current/ && bundle exec puma -C #{deploy_to}/current/config/puma.rb"
     end
   end
 
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-       execute "kill -USR2 `cat #{deploy_to}/current/tmp/pids/unicorn.pid`"
+       execute "kill -USR2 `cat #{deploy_to}/current/tmp/pids/puma.pid`"
     end
   end
 
   desc "Stop application"
   task :stop do
     on roles(:app) do
-      execute "kill -QUIT `cat #{deploy_to}/current/tmp/pids/unicorn.pid`"
+      execute "kill -QUIT `cat #{deploy_to}/current/tmp/pids/puma.pid`"
     end
   end
 
