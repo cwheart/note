@@ -1,6 +1,6 @@
 set :stage, :production
 
-set :deploy_to, '/www/node'
+set :deploy_to, '/www/note'
 
 set :rvm_type, :system
 set :rvm_ruby_version, '2.0.0'
