@@ -20,8 +20,8 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      run "cd #{deploy_to}/current/"
-      run "bundle exec unicorn_rails -c #{deploy_to}/current/config/unicorn.rb -D"
+      execute "cd #{deploy_to}/current/"
+      execute "bundle exec unicorn_rails -c #{deploy_to}/current/config/unicorn.rb -D"
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
     end
