@@ -12,7 +12,7 @@ set :scm, :git
 set :linked_files, %w{config/database.yml config/unicorn.rb}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, {  }
 set :keep_releases, 5
 
 namespace :deploy do
