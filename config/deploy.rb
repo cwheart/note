@@ -16,11 +16,24 @@ set :keep_releases, 5
 
 namespace :deploy do
 
+  desc "Start application"
+  task :start do
+    on roles(:app) do
+      execute "cd #{deploy_to}/current/ && RAILS_ENV=#{fetch(:rails_env)} bundle exec unicorn_rails -c #{deploy_to}/current/config/unicorn.rb -D"
+    end
+  end
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      p "-------------#{default_env}-------------"
-      execute "cd #{deploy_to}/current/ && RAILS_ENV=production bundle exec unicorn_rails -c #{deploy_to}/current/config/unicorn.rb -D"
+       execute "kill -USR2 `cat #{deploy_to}/current/tmp/pids/unicorn.pid`"
+    end
+  end
+
+  desc "Stop application"
+  task :stop do
+    on roles(:app) do
+      execute "kill -QUIT `cat #{deploy_to}/current/tmp/pids/unicorn.pid`"
     end
   end
 
