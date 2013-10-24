@@ -13,16 +13,15 @@ set :linked_files, %w{config/database.yml config/unicorn.rb}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
-# set :keep_releases, 5
+set :keep_releases, 5
 
 namespace :deploy do
 
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
+      p "-------------#{default_env}-------------"
       execute "cd #{deploy_to}/current/ && RAILS_ENV=production bundle exec unicorn_rails -c #{deploy_to}/current/config/unicorn.rb -D"
-      # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
     end
   end
 
