@@ -19,21 +19,28 @@ namespace :deploy do
   desc "Start application"
   task :start do
     on roles(:app) do
-      execute "cd #{deploy_to}/current/ && bundle exec puma -C #{deploy_to}/current/config/puma.rb"
+      execute "cd #{deploy_to}/current/ && bundle exec puma -C config/puma.rb"
     end
   end
-
-  desc 'Restart application'
+ 
+  desc'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-       execute "kill -USR2 `cat #{deploy_to}/current/tmp/pids/puma.pid`"
+       execute "cd #{deploy_to}/current/ && bundle exec pumactl -S tmp/states/puma.state restart"
     end
   end
 
   desc "Stop application"
   task :stop do
     on roles(:app) do
-      execute "kill -QUIT `cat #{deploy_to}/current/tmp/pids/puma.pid`"
+      execute "cd #{deploy_to}/current/ && bundle exec pumactl -S tmp/states/puma.state stop"
+    end
+  end
+
+  desc "Stop application force"
+  task :force_stop do
+    on roles(:app) do
+      execute "cd #{deploy_to}/current/ && bundle exec pumactl -S tmp/states/puma.state halt"
     end
   end
 
