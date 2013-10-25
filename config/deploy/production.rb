@@ -13,9 +13,9 @@ set :unicorn_path, "#{deploy_to}/current/config/unicorn.rb"
 # Supports bulk-adding hosts to roles, the primary
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
-role :app, %w{180.186.38.170}
-role :web, %w{180.186.38.170}
-role :db,  %w{180.186.38.170}
+role :app, %w{183.136.239.74 180.186.38.170}
+role :web, %w{183.136.239.74 180.186.38.170}
+role :db,  %w{183.136.239.74 180.186.38.170}
 
 # Extended Server Syntax
 # ======================
@@ -24,6 +24,7 @@ role :db,  %w{180.186.38.170}
 # something that quacks like a has can be used to set
 # extended properties on the server.
 server '180.186.38.170', user: 'www-data', roles: %w{web app}, my_property: :my_value
+server '183.136.239.74', user: 'www-data', roles: %w{web app}, my_property: :my_value
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
